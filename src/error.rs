@@ -47,7 +47,7 @@ impl error::Error for ConnectionError {
             // type has a concrete method called `description`, which conflicts
             // with the trait method. For now, we must explicitly call
             // `description` through the `Error` trait.
-            ConnectionError::Nix(ref err) => "a nix error",
+            ConnectionError::Nix(_) => "a nix error",
             ConnectionError::SelectError => "select error",
             ConnectionError::SocketError(_) => "socket error"
         }
@@ -60,7 +60,7 @@ impl error::Error for ConnectionError {
             // to a trait object `&Error`. This works because both error types
             // implement `Error`.
             ConnectionError::Io(ref err) => Some(err),
-            ConnectionError::Nix(ref err) => None,
+            ConnectionError::Nix(_) => None,
             ConnectionError::SocketError(_) => None,
             ConnectionError::SelectError => None
         }
